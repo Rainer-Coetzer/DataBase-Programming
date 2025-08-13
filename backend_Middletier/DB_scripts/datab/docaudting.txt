@@ -1,0 +1,9 @@
+CREATE TABLE docAuditLog (
+    AuditID int primary key,              
+	doc_ID int foreign key references documents(doc_ID),                                 
+    JS_ID int foreign key references job_seeker(JS_ID),
+	employer_ID int foreign key references employer (employer_ID),
+	actType VARCHAR(10) not null,
+docTimeStamp datetime default getdate(),
+	
+);

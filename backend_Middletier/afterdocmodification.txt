@@ -1,0 +1,16 @@
+create trigger trig_afterJSModOnDoc
+on documents
+after
+insert, update, delete
+as
+begin
+   declare @doc_ID int, @JS_ID int;
+
+    select @doc_ID = JSkr.doc_ID, @JS_ID = JSkr.JS_ID
+   from inserted JSkr;
+
+  
+    insert into docAuditLog (doc_ID, JS_ID, actType, docTimeStamp )
+    values (@doc_ID, @JS_ID, 'Modify', GETDATE());
+end;
+go

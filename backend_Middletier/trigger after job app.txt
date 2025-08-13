@@ -1,0 +1,15 @@
+CREATE TRIGGER trg_AfterJobApplicationInsert  
+ON app  
+AFTER INSERT  
+AS  
+BEGIN      
+-- Update the app table with the correct doc_ID from the documents table      
+	UPDATE a      
+	SET a.doc_ID = d.doc_ID      
+	FROM  app a      
+	INNER JOIN          
+	inserted i ON a.app_ID = i.app_ID     
+	 -- Join the inserted record with the app table      
+	INNER JOIN    documents d ON d.JS_ID = i.JS_ID;      
+	-- Match documents based on JS_ID  
+END;      
